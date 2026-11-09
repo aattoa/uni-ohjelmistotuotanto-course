@@ -1,10 +1,10 @@
 class Player:
-    def __init__(self, dict):
-        self.name = dict['name']
-        self.team = dict['team']
-        self.goals = dict['goals']
-        self.assists = dict['assists']
-        self.nationality = dict['nationality']
+    def __init__(self, fields: dict):
+        self.name = fields['name']
+        self.team = fields['team']
+        self.goals = fields['goals']
+        self.assists = fields['assists']
+        self.nationality = fields['nationality']
 
     def points(self) -> int:
         return self.goals + self.assists

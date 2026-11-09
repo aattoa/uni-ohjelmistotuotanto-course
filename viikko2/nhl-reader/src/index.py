@@ -6,7 +6,7 @@ from player import Player
 
 class PlayerReader:
     def __init__(self, url: str):
-        self.players = list(map(Player, requests.get(url).json()))
+        self.players = list(map(Player, requests.get(url, timeout=10).json()))
 
     def get_nationalities(self) -> list[str]:
         return list(set(map(lambda player: player.nationality, self.players)))
@@ -19,10 +19,15 @@ class PlayerStats:
         self.reader = reader
 
     def players_by_nationality(self, nationality: str) -> list[Player]:
-        return list(filter(lambda player: player.nationality == nationality, self.reader.get_players()))
+        return list(filter(
+            lambda player: player.nationality == nationality,
+            self.reader.get_players()))
 
     def top_scorers_by_nationality(self, nationality: str) -> list[Player]:
-        return sorted(self.players_by_nationality(nationality), reverse=True, key=lambda player: player.points())
+        return sorted(
+            self.players_by_nationality(nationality),
+            key=lambda player: player.points(),
+            reverse=True)
 
 def player_table(title: str, players: list[Player]) -> Table:
     table = Table(title=title)
@@ -30,7 +35,12 @@ def player_table(title: str, players: list[Player]) -> Table:
     for column in ("Player", "Teams", "Goals", "Assists", "Points"):
         table.add_column(column)
     for player in players:
-        table.add_row(player.name, player.team, str(player.goals), str(player.assists), str(player.points()))
+        table.add_row(
+            player.name,
+            player.team,
+            str(player.goals),
+            str(player.assists),
+            str(player.points()))
 
     return table
 
