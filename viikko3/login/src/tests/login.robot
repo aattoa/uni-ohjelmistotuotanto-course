@@ -8,19 +8,19 @@ Test Setup      Reset Application Create User And Go To Login Page
 Login With Correct Credentials
     Set Username  kalle
     Set Password  kalle123
-    Click  button >> text=Login
+    Enter Details
     Login Should Succeed
 
 Login With Incorrect Password
     Set Username  kalle
     Set Password  kalle456
-    Click  button >> text=Login
+    Enter Details
     Login Should Fail With Message  Invalid username or password
 
 Login With Nonexistent Username
     Set Username  veryrealhuman
     Set Password  veryrealpassword
-    Click  button >> text=Login
+    Enter Details
     Login Should Fail With Message  Invalid username or password
 
 *** Keywords ***
@@ -32,15 +32,10 @@ Login Should Fail With Message
     Login Page Should Be Open
     Get Text  body  *=  ${message}
 
-Set Username
-    [Arguments]  ${username}
-    Fill Text  id=username  ${username}
-
-Set Password
-    [Arguments]  ${password}
-    Fill Secret  id=password  $password
-
 Reset Application Create User And Go To Login Page
     Reset Application
     Create User  kalle  kalle123
     Go To Login Page
+
+Enter Details
+    Click  button >> text=Login
