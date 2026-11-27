@@ -1,11 +1,11 @@
 class TennisGame:
-    def __init__(self, player1_name, player2_name):
+    def __init__(self, player1_name: str, player2_name: str):
         self.player1_name = player1_name
         self.player2_name = player2_name
         self.player1_score = 0
         self.player2_score = 0
 
-    def won_point(self, player_name):
+    def won_point(self, player_name: str):
         if player_name == self.player1_name:
             self.player1_score += 1
         else:
