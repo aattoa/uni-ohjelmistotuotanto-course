@@ -1,3 +1,16 @@
+def _describe_score(score: int) -> str:
+    if score == 0:
+        return "Love"
+    elif score == 1:
+        return "Fifteen"
+    elif score == 2:
+        return "Thirty"
+    elif score == 3:
+        return "Forty"
+    else:
+        assert False
+
+
 class TennisGame:
     def __init__(self, player1_name: str, player2_name: str):
         self.player1_name = player1_name
@@ -33,23 +46,6 @@ class TennisGame:
             else:
                 return f"Win for {self.player2_name}"
         else:
-            score = ""
-            temp_score = 0
-
-            for i in range(1, 3):
-                if i == 1:
-                    temp_score = self.player1_score
-                else:
-                    score += "-"
-                    temp_score = self.player2_score
-
-                if temp_score == 0:
-                    score += "Love"
-                elif temp_score == 1:
-                    score += "Fifteen"
-                elif temp_score == 2:
-                    score += "Thirty"
-                elif temp_score == 3:
-                    score += "Forty"
-
-            return score
+            score1 = _describe_score(self.player1_score)
+            score2 = _describe_score(self.player2_score)
+            return f"{score1}-{score2}"
