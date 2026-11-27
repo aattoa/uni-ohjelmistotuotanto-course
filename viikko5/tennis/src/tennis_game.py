@@ -12,30 +12,30 @@ class TennisGame:
             self.player2_score += 1
 
     def get_score(self):
-        score = ""
-        temp_score = 0
-
         if self.player1_score == self.player2_score:
             if self.player1_score == 0:
-                score = "Love-All"
+                return "Love-All"
             elif self.player1_score == 1:
-                score = "Fifteen-All"
+                return "Fifteen-All"
             elif self.player1_score == 2:
-                score = "Thirty-All"
+                return "Thirty-All"
             else:
-                score = "Deuce"
+                return "Deuce"
         elif self.player1_score >= 4 or self.player2_score >= 4:
             difference = self.player1_score - self.player2_score
 
             if difference == 1:
-                score = f"Advantage {self.player1_name}"
+                return f"Advantage {self.player1_name}"
             elif difference == -1:
-                score = f"Advantage {self.player2_name}"
+                return f"Advantage {self.player2_name}"
             elif difference >= 2:
-                score = f"Win for {self.player1_name}"
+                return f"Win for {self.player1_name}"
             else:
-                score = f"Win for {self.player2_name}"
+                return f"Win for {self.player2_name}"
         else:
+            score = ""
+            temp_score = 0
+
             for i in range(1, 3):
                 if i == 1:
                     temp_score = self.player1_score
@@ -52,4 +52,4 @@ class TennisGame:
                 elif temp_score == 3:
                     score += "Forty"
 
-        return score
+            return score
