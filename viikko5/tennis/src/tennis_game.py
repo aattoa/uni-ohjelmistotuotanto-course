@@ -26,29 +26,40 @@ class TennisGame:
             case self.player2_name:
                 self.player2_score += 1
 
-    def get_score(self):
-        if self.player1_score == self.player2_score:
-            match self.player1_score:
-                case 0:
-                    return "Love-All"
-                case 1:
-                    return "Fifteen-All"
-                case 2:
-                    return "Thirty-All"
-                case _:
-                    return "Deuce"
-        elif _potential_win(self.player1_score) or _potential_win(self.player2_score):
-            difference = self.player1_score - self.player2_score
+    def _score_equal(self) -> str:
+        match self.player1_score:
+            case 0:
+                return "Love-All"
+            case 1:
+                return "Fifteen-All"
+            case 2:
+                return "Thirty-All"
+            case _:
+                return "Deuce"
 
-            if difference == 1:
-                return f"Advantage {self.player1_name}"
-            elif difference == -1:
-                return f"Advantage {self.player2_name}"
-            elif difference >= 2:
-                return f"Win for {self.player1_name}"
-            else:
-                return f"Win for {self.player2_name}"
+    def _score_potential_win(self) -> str:
+        difference = self.player1_score - self.player2_score
+        if difference == 1:
+            return f"Advantage {self.player1_name}"
+        elif difference == -1:
+            return f"Advantage {self.player2_name}"
+        elif difference >= 2:
+            return f"Win for {self.player1_name}"
         else:
-            score1 = _describe_score(self.player1_score)
-            score2 = _describe_score(self.player2_score)
-            return f"{score1}-{score2}"
+            return f"Win for {self.player2_name}"
+
+    def _score_default(self) -> str:
+        score1 = _describe_score(self.player1_score)
+        score2 = _describe_score(self.player2_score)
+        return f"{score1}-{score2}"
+
+    def _potential_win(self) -> bool:
+        return _potential_win(self.player1_score) or _potential_win(self.player2_score)
+
+    def get_score(self) -> str:
+        if self.player1_score == self.player2_score:
+            return self._score_equal()
+        elif self._potential_win():
+            return self._score_potential_win()
+        else:
+            return self._score_default()
