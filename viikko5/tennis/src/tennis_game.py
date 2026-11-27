@@ -9,6 +9,8 @@ def _describe_score(score: int) -> str:
         case 3:
             return "Forty"
 
+def _potential_win(score: int) -> bool:
+    return score >= 4
 
 class TennisGame:
     def __init__(self, player1_name: str, player2_name: str):
@@ -35,7 +37,7 @@ class TennisGame:
                     return "Thirty-All"
                 case _:
                     return "Deuce"
-        elif self.player1_score >= 4 or self.player2_score >= 4:
+        elif _potential_win(self.player1_score) or _potential_win(self.player2_score):
             difference = self.player1_score - self.player2_score
 
             if difference == 1:
